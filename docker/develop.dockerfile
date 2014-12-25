@@ -10,10 +10,14 @@ RUN \
     apt-get install -y software-properties-common && \
     apt-get install -y byobu curl git htop man unzip vim wget && \
     apt-get install -y emacs && \
-    add-apt-repository -y ppa:nginx/stable && \
+    apt-add-repository -y ppa:nginx/stable && \
     apt-get update && \
     apt-get install -y nginx && \
+    apt-add-repository -y ppa:nginx/stable && \
+    apt-get update && \
+    apt-get install -y td-agent && \
     rm -rf /var/lib/apt/lists/*
+
 
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 RUN echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/apt/sources.list
@@ -30,4 +34,7 @@ VOLUME ["/var/cache/nginx"]
 
 EXPOSE 80 443
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD [
+    "nginx", "-g", "daemon off;",
+    "/etc/init.d/td-agent", "start;",
+    ]
