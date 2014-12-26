@@ -1,0 +1,8 @@
+[core]
+    autocrlf = input
+    precomposeunicode = true
+[user]
+    name = TakesxiSximada
+    email = takesxi.sximada@gmail.com
+[push]
+    default = simple

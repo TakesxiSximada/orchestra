@@ -1,0 +1,138 @@
+#-*- coding: utf-8 -*-
+alias complete="echo 'OK'"
+ 
+# zsh
+export HISTFILE=${HOME}/.zsh_history
+touch ${HISTFILE}
+export HISTSIZE=1000
+export SACEHIST=100000
+ 
+setopt hist_ignore_dups
+setopt EXTENDED_HISTORY
+ 
+# utils
+export PS1="$ "
+export GNUBIN=/usr/local/Cellar/coreutils/8.21/libexec/gnubin/
+ 
+# ramdisk
+alias mkram="diskutil erasevolume HFS+ ramdisk `hdiutil attach -nomount ram://2097152`" # 1GB ram disk
+ 
+# grep
+alias grep="grep --color"
+ 
+# editor
+export EDITOR=emacs
+ 
+# tmux
+alias tm="tmux new-session \; source-file ~/.tmux/session"
+ 
+# emacs
+bindkey -e  # emacs style key bind
+  # C-p up-line-or-history
+  # C-r history-incremental-search-backward
+export USER_ID=`id -u`
+export EMACS_TMP_DIR="/tmp/emacs.$USER_ID"
+export EMACS_SOCK="$EMACS_TMP_DIR/sock"
+mkdir -p $EMACS_TMP_DIR
+export EMACS_VERSION=24.4
+alias ge="emacs-$EMACS_VERSION -nw"
+alias emacsd.start="emacs --daemon"
+alias emacsd.stop="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
+alias py="ipython"
+alias ipy="ipython"
+alias cpy="python"
+
+# brew
+export PATH="$HOME/ng/bin:$PATH" 
+ 
+# anyenv
+if [ -d ${HOME}/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+    for D in `ls $HOME/.anyenv/envs`
+    do
+        export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
+    done
+fi
+export PATH=$HOME/.anyenv/envs/plenv/versions/5.21.0/bin/:$PATH
+export PATH=$HOME/bin:$PATH
+ 
+# export PYENV_ROOT=$HOME/.pyenv
+# export PYENV_VERSION=`cat $HOME/.pyenv/version`
+# export PYENV_VERSION_BIN=$PYENV_ROOT/versions/$PYENV_VERSION/bin
+# export PATH=$HOME/bin:$PYENV_VERSION_BIN:$PYENV_ROOT/bin:$GNUBIN:$PATH
+# eval "$(pyenv init -)"
+ 
+# virtualenvwrapper included
+# echo source $PYENV_VERSION_BIN/virtualenvwrapper.sh
+# source $PYENV_VERSION_BIN/virtualenvwrapper.sh
+ 
+# rbenv
+# export PATH=$HOME/.rbenv/bin:$PATH
+# eval "(rbenv init -)"
+ 
+# plenv
+# export PATH="$HOME/.plenv/bin:$PATH"
+# eval "$(plenv init -)"
+ 
+# jenkins
+#alias jenkins="nohup java -jar jenkins.war > $HOME/ng/var/log/jenkins.log 2>&1"
+#alias py=/Users/takeshishimada/ng/var/src/altair/deploy/dev/bin/altairpy
+#zsh
+ 
+ 
+# ng
+export NG=$HOME/ng
+export NGHOME=${NG}/home
+export NGVAR=${NG}/var
+export NGUSR=${NG}/usr
+export NGOPT=${NG}/opt
+export NGVIRTUALENV=${NGVAR}/lib/virtualenv
+# export NGVIRTUALENV=${NGUSR}/virtualenv
+ 
+# ssh
+ssh-add
+ 
+# virtualenvwrapper
+export WORKON_HOME=$NGVIRTUALENV
+export PROJECT_HOME=$NGHOME
+mkdir -p ${WORKON_HOME} ${PROJECT_HOME}
+export VIRTUALENV_PATH=`pyenv which virtualenvwrapper.sh`
+source ${VIRTUALENV_PATH}
+ 
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+ 
+# ticketstar
+alias mysql-forward="ssh -N -f -L 3306:localhost:3306"
+ 
+# For alshain
+export ALTAIR=/srv/altair/current
+export ALTAIR_DEPLOY=dev
+ 
+# pip/buildout cache
+#export PIP_DOWNLOAD_CACHE=${NGVAR}/egg
+#export http_proxy=http://127.0.0.1:8881/
+#export PIP_FIND_LINKS=http://127.0.0.1:8881/
+ 
+# eclipse
+alias eclipse="open $NGOPT/adt-bundle-mac-x86_64-20140321/eclipse/Eclipse.app"
+ 
+# blender
+alias blender="open $NGOPT/Blender-2.7.0/blender.app"
+ 
+# LightTable
+alias lighttable="open $NGOPT/LightTable/LightTable.app"
+ 
+# homebrew
+PATH=$PATH:/usr/local/Cellar/gettext/0.18.3.2/bin/ # gettext
+ 
+ 
+ 
+export DOCKER_HOST=tcp://localhost:2375
+alias unity="open /Applications/Unity/Unity.app/"
+ 
+# zsh
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars " _-./;@"
+zstyle ':zle:*' word-style unspecified
