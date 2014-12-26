@@ -1,3 +1,4 @@
+;; -*- coding: utf-8 -*-
 ;; default load path
 ;;(defvar emacs-d (concat (getenv "HOME") "/.emacs.d/"))
  
@@ -6,13 +7,29 @@
  
 ;; color theme select
 ;(require 'cc-mode)
-;(require 'color-theme)
+;; (require 'color-theme)
 ;(require 'menu-tree)
 
 
-(add-to-list 'load-path "/Users/takeshishimada/ng/home/common/twittering-mode")
-(add-hook 'html-helper-load-hook '(lambda () (require 'html-font)))
-(add-hook 'html-helper-mode "html-helper-mode" "Yay HTML" t)
+
+;; twittering-mode
+(let ((twittering-mode-dir "/Users/sximada/ng/var/src/oss/twittering-mode"))
+  (if (file-directory-p twittering-mode-dir)
+			(let ()
+				(add-to-list 'load-path twittering-mode-dir)
+				(require 'twittering-mode)
+				(setq twittering-account-authorization 'authorized)
+				(setq twittering-oauth-access-token-alist
+							'(("oauth_token" . "")
+								("oauth_token_secret" . "")
+								("user_id" . "")
+								("screen_name" . "")))
+				(setq twittering-tinyurl-service 'migre.me) ;; for mig.re
+				(message "twittering-mode loaded"))
+		(message "twittering-mode.el not found")))
+
+;; (add-hook 'html-helper-load-hook '(lambda () (require 'html-font)))
+;; (add-hook 'html-helper-mode "html-helper-mode" "Yay HTML" t)
  
 ;; riece
 ;; (autoload 'riece "riece" "Start Riece" t)
@@ -158,19 +175,6 @@
  
  
 (setq x-select-enable-clipboard t)
- 
-;; for twitter
-(require 'twittering-mode)
-(setq twittering-account-authorization 'authorized)
-(setq twittering-oauth-access-token-alist
-      '(("oauth_token" . "")
-        ("oauth_token_secret" . "")
-        ("user_id" . "")
-        ("screen_name" . "")))
- 
-(setq twittering-tinyurl-service 'migre.me) ;; for mig.re
- 
- 
  
 ;; clipboard
 ;(add-to-list 'load-path (concat (getenv "CLIPSS_PATH") "/emacs"))
