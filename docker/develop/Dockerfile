@@ -3,12 +3,10 @@ FROM ubuntu:latest
 MAINTAINER TakesxiSximada @TakesxiSximada
 
 # INSTALL
-RUN \
-    sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get install -y build-essential && \
-    apt-get install -y software-properties-common && \
-    apt-get install -y byobu curl git htop man unzip vim wget && \
+RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && apt-get update
+RUN apt-get install -y build-essential
+RUN apt-get install -y software-properties-common
+RUN apt-get install -y byobu curl git htop man unzip vim wget
 
 
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
@@ -27,7 +25,7 @@ RUN useradd sximada
 ######################
 ## supervisor
 ######################
-RUN apt-get install -y supervisord
+RUN apt-get install -y supervisor
 
 ######################
 ## Emacs
@@ -56,8 +54,8 @@ RUN apt-get install -y tmux
 ######################
 ## nginx
 ######################
-ENV NGINX_VERSION 1.7.7-1~wheezy
-RUN apt-get update && apt-get install -y nginx=${NGINX_VERSION}
+# ENV NGINX_VERSION 1.7.7-1~wheezy
+RUN apt-get update && apt-get install -y nginx
 # RUN ln -sf /dev/stdout /var/log/nginx/access.log
 # RUN ln -sf /dev/stderr /var/log/nginx/error.log
 VOLUME ["/var/cache/nginx"]
