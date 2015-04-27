@@ -55,7 +55,7 @@ RUN apt-get install -y libmysqlclient-dev
 
 # これらがないとRMagicがbuildできない
 RUN apt-get install -y imagemagick
-RUN apt-get install -y imagemagick-devel
+RUN apt-get install -y libmagickwand-dev
 
 # railsアプリケーションをclone
 # RUN mkdir -p /srv/www/
