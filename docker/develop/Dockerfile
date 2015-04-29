@@ -4,6 +4,7 @@ MAINTAINER TakesxiSximada @TakesxiSximada
 ENV NGINX_VERSION 1.7.7-1~wheezy
 
 # apt-get
+RUN aptitude install -y software-properties-common aptitude
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
     apt-add-repository -y 'deb http://packages.treasure-data.com/debian/ lucid contrib' && \
 RUN \
@@ -14,7 +15,6 @@ RUN \
     echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/mongodb.list
 
 # update apt
-RUN apt-get install -y aptitude
 RUN aptitude update
 RUN aptitude upgrade
 RUN apt-get update

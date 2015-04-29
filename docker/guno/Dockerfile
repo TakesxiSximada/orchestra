@@ -57,6 +57,9 @@ RUN apt-get install -y libmysqlclient-dev
 RUN apt-get install -y imagemagick
 RUN apt-get install -y libmagickwand-dev
 
+# RUN apt-get install -y imagemagick-devel
+
+
 # railsアプリケーションをclone
 # RUN mkdir -p /srv/www/
 # RUN git clone REPOSITORY
